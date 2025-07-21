@@ -32,5 +32,6 @@ const NESTIA_CONFIG: INestiaConfig = {
     ],
     beautify: true,
   },
+  output: "sdk",
 };
 export default NESTIA_CONFIG;
