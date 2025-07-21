@@ -24,6 +24,10 @@
   },
   "dependencies": {
     "@fxts/core": "^1.15.0",
+    "@nestia/core": "^7.2.1",
+    "@nestia/e2e": "^7.2.1",
+    "@nestia/fetcher": "^7.2.1",
+    "@nestia/sdk": "^7.2.1",
     "@nestjs/common": "^11.1.5",
     "@nestjs/core": "^11.1.5",
     "@nestjs/platform-express": "^11.1.5",
@@ -38,6 +42,7 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.1",
     "@eslint/js": "^10.0.0",
+    "@nestia/benchmark": "^7.2.1",
     "@nestjs/cli": "^11.0.7",
     "@nestjs/schematics": "^11.0.5",
     "@nestjs/testing": "^11.1.5",
@@ -52,6 +57,7 @@
     "eslint-plugin-prettier": "^5.5.3",
     "globals": "^16.3.0",
     "jest": "^30.0.4",
+    "nestia": "^7.2.1",
     "prettier": "^3.6.2",
     "prisma": "^6.12.0",
     "source-map-support": "^0.5.21",
