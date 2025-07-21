@@ -1,0 +1,54 @@
+{
+  "openapi": "3.1.0",
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "description": "Local Server"
+    }
+  ],
+  "info": {
+    "version": "0.0.1",
+    "title": "nestjs-fastify-practice",
+    "description": "",
+    "license": {
+      "name": "UNLICENSED"
+    }
+  },
+  "paths": {
+    "/": {
+      "get": {
+        "description": "Get",
+        "tags": [],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "x-samchon-accessor": [
+          "getHello"
+        ],
+        "x-samchon-controller": "AppController"
+      }
+    }
+  },
+  "components": {
+    "schemas": {},
+    "securitySchemes": {
+      "bearer": {
+        "type": "apiKey",
+        "name": "Authorization",
+        "in": "header"
+      }
+    }
+  },
+  "tags": [],
+  "x-samchon-emended-v4": true
+}

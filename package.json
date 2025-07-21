@@ -18,11 +18,14 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "prepare": "ts-patch install",
+    "prepare": "ts-patch install && typia patch",
     "prisma:migrate": "npx prisma migrate dev --name init",
-    "prisma:markdown": "npx prisma generate"
+    "prisma:markdown": "npx prisma generate",
+    "nestia:swagger": "npx nestia swagger",
+    "nestia:all": "npx nestia all"
   },
   "dependencies": {
+    "@fastify/static": "^8.2.0",
     "@fxts/core": "^1.15.0",
     "@nestia/core": "^7.2.1",
     "@nestia/e2e": "^7.2.1",
@@ -32,6 +35,7 @@
     "@nestjs/core": "^11.1.5",
     "@nestjs/platform-express": "^11.1.5",
     "@nestjs/platform-fastify": "^11.1.5",
+    "@nestjs/swagger": "^11.2.0",
     "@prisma/client": "^6.12.0",
     "dayjs": "^1.11.13",
     "prisma-markdown": "^3.0.1",
