@@ -14,6 +14,8 @@
 + [x] nestia 적용
 + [x] prisma docs 자동 생성 도전
 + [x] 스웨거 적용
++ [x] pino logger 적용
++ [ ] pino logger rotate 적용
 + [ ] 디비 설계
 + [ ] 미들웨어 구성
 + [ ] api 구현
