@@ -1,11 +1,25 @@
-import { NestFactory } from "@nestjs/core";
-import { AppModule } from "./app.module";
-import { FastifyAdapter, NestFastifyApplication } from "@nestjs/platform-fastify";
 import { NestiaSwaggerComposer } from "@nestia/sdk";
+import { NestFactory } from "@nestjs/core";
+import { FastifyAdapter, NestFastifyApplication } from "@nestjs/platform-fastify";
 import { SwaggerModule } from "@nestjs/swagger";
+import { randomUUID } from "crypto";
+import { Logger } from "nestjs-pino";
+import { AppModule } from "./app.module";
 
 async function bootstrap() {
-  const app = await NestFactory.create<NestFastifyApplication>(AppModule, new FastifyAdapter());
+  const app = await NestFactory.create<NestFastifyApplication>(
+    AppModule,
+    new FastifyAdapter({
+      logger: false,
+      genReqId: () => randomUUID(),
+    }),
+    {
+      bufferLogs: true,
+    },
+  );
+
+  app.useLogger(app.get(Logger));
+
   const document = await NestiaSwaggerComposer.document(app, {
     openapi: "3.1",
     servers: [
