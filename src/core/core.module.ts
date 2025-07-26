@@ -1,40 +1,21 @@
-import { Global, Module } from "@nestjs/common";
-import { LoggerModule } from "nestjs-pino";
+import { Global, Logger, MiddlewareConsumer, Module, NestModule } from "@nestjs/common";
+import { WinstonModule } from "nest-winston";
 import { PrismaService } from "./database/prisma.service";
+import { LoggerMiddleware } from "./middleware/logger.middleware";
+import { transportList } from "./winston/winson.setup";
 
 @Global()
 @Module({
   imports: [
-    LoggerModule.forRootAsync({
-      imports: [],
-      providers: [],
-      useFactory: () => {
-        return {
-          isGlobal: true,
-
-          pinoHttp: {
-            name: "practice",
-            level: process.env.NODE_ENV !== "production" ? "debug" : "info",
-            transport: {
-              target: "pino-pretty",
-              options: {
-                colorize: true,
-                singleLine: true,
-                levelFirst: true,
-                translateTime: "yyyy-mm-dd'T'HH:MM:ss.l'Z'",
-                messageFormat: "{req.headers.x-request-id} [{context}] {msg}",
-                ignore: "pid,hostname,context,res.headers",
-                errorLikeObjectKeys: ["err", "error"],
-              },
-            },
-
-            wrapSerializers: true,
-            quietReqLogger: true,
-          },
-        };
-      },
+    WinstonModule.forRoot({
+      transports: transportList,
     }),
   ],
-  providers: [PrismaService],
+  providers: [Logger, PrismaService],
+  exports: [Logger],
 })
-export class CoreModule {}
+export class CoreModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(LoggerMiddleware).forRoutes("*");
+  }
+}
