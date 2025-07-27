@@ -1,14 +1,18 @@
 import { Injectable, Logger, NestMiddleware } from "@nestjs/common";
 import { IncomingMessage, ServerResponse } from "http";
 import { v4 as uuidv4 } from "uuid";
-import { asyncLocalStorage, REQUEST_ID } from "../async-local-storage/async.local.storage";
+import { asyncLocalStorage, PRISMA, REQUEST_ID, TRANSACTION } from "../async-local-storage/async.local.storage";
 import { BaseComponent } from "../base/base.component";
+import { PrismaService } from "../database/prisma.service";
 
 @Injectable()
 export class AlsMiddleware extends BaseComponent implements NestMiddleware {
   private readonly IS_TEST: boolean;
 
-  constructor(logger: Logger) {
+  constructor(
+    logger: Logger,
+    private readonly prisma: PrismaService,
+  ) {
     super(logger);
 
     this.IS_TEST = process.env.MODE === "test";
@@ -36,6 +40,8 @@ export class AlsMiddleware extends BaseComponent implements NestMiddleware {
       const uuid: string = uuidv4();
 
       store.set(REQUEST_ID, uuid);
+      store.set(PRISMA, this.prisma);
+      store.set(TRANSACTION, undefined);
 
       if (!this.IS_TEST) {
         this.debug(`Set connection in AsyncLocalStorage`);

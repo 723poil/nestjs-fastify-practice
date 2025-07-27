@@ -1,6 +1,7 @@
-import { Logger } from "@nestjs/common";
+import { Injectable, Logger } from "@nestjs/common";
 import { getRequestId } from "../async-local-storage/async.local.storage";
 
+@Injectable()
 export class BaseComponent {
   constructor(protected readonly logger: Logger) {}
 

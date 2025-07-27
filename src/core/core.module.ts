@@ -13,7 +13,7 @@ import { AlsMiddleware } from "./middleware/als.middleware";
     }),
   ],
   providers: [Logger, PrismaService],
-  exports: [Logger],
+  exports: [Logger, PrismaService],
 })
 export class CoreModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

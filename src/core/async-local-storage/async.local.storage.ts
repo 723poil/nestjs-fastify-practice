@@ -20,3 +20,5 @@ export const getRequestId = (): string => {
 };
 
 export const REQUEST_ID = "storage/reqId";
+export const PRISMA = "storage/prisma";
+export const TRANSACTION = "storage/transaction";
