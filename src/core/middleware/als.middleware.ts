@@ -6,24 +6,28 @@ import { BaseComponent } from "../base/base.component";
 
 @Injectable()
 export class AlsMiddleware extends BaseComponent implements NestMiddleware {
+  private readonly IS_TEST: boolean;
+
   constructor(logger: Logger) {
     super(logger);
+
+    this.IS_TEST = process.env.MODE === "test";
   }
 
   use(request: IncomingMessage, response: ServerResponse, next: () => void): void {
-    if (process.env.MODE !== "test") {
+    if (!this.IS_TEST) {
       this.debug("Hit");
     }
 
     asyncLocalStorage.run(new Map(), () => {
-      if (process.env.MODE !== "test") {
+      if (!this.IS_TEST) {
         this.debug(`Run AsyncLocalStorage`);
       }
 
       const store = asyncLocalStorage.getStore();
 
       if (!store) {
-        if (process.env.MODE !== "test") {
+        if (!this.IS_TEST) {
           this.error({ message: "AsyncLocalStorage store is not available" });
         }
         throw new Error("unhandled error: AsyncLocalStorage store is not available");
@@ -33,7 +37,7 @@ export class AlsMiddleware extends BaseComponent implements NestMiddleware {
 
       store.set(REQUEST_ID, uuid);
 
-      if (process.env.MODE !== "test") {
+      if (!this.IS_TEST) {
         this.debug(`Set connection in AsyncLocalStorage`);
       }
 

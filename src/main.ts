@@ -6,6 +6,8 @@ import { WINSTON_MODULE_NEST_PROVIDER } from "nest-winston";
 import { AppModule } from "./app.module";
 
 async function bootstrap() {
+  const PORT: string = process.env.PORT ?? (3_000).toFixed();
+
   const adapter = new FastifyAdapter({
     trustProxy: true,
     logger: false,
@@ -21,7 +23,7 @@ async function bootstrap() {
     openapi: "3.1",
     servers: [
       {
-        url: "http://localhost:3000",
+        url: `http://localhost:${PORT}`,
         description: "localhost",
       },
     ],
@@ -29,7 +31,7 @@ async function bootstrap() {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
   SwaggerModule.setup("api", app, document as any);
 
-  await app.listen(process.env.PORT ?? 3_000, "0.0.0.0");
+  await app.listen(PORT, "0.0.0.0");
 }
 
 bootstrap();

@@ -24,8 +24,8 @@ const dailyOption = (level: string) => {
       }),
       winston.format.ms(),
       utilities.format.nestLike(`PRACTICE-${MODE}`, {
-        colors: true,
-        prettyPrint: true,
+        colors: false,
+        prettyPrint: false,
         processId: true,
         appName: true,
       }),
