@@ -3,6 +3,7 @@ import { WinstonModule } from "nest-winston";
 import { PrismaService } from "./database/prisma.service";
 import { LoggerMiddleware } from "./middleware/logger.middleware";
 import { transportList } from "./winston/winson.setup";
+import { AlsMiddleware } from "./middleware/als.middleware";
 
 @Global()
 @Module({
@@ -16,6 +17,6 @@ import { transportList } from "./winston/winson.setup";
 })
 export class CoreModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(LoggerMiddleware).forRoutes("*");
+    consumer.apply(AlsMiddleware, LoggerMiddleware).forRoutes("*");
   }
 }

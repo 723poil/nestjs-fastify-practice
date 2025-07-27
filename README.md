@@ -17,6 +17,8 @@
 + [x] winston logger 적용
 + [x] winston logger rotate 적용
 + [x] log 미들웨어 적용
++ [x] als 적용
++ [x] request ID 생성
 + [ ] 디비 설계
 + [ ] 미들웨어 구성
 + [ ] api 구현

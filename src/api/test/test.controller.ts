@@ -8,16 +8,14 @@ import { BaseComponent } from "src/core/base/base.component";
 export class TestController extends BaseComponent {
   constructor(logger: Logger) {
     super(logger);
-
-    this.info("test info");
-    this.warn("test warn");
-    this.error("test error");
-    this.debug("test debug");
   }
 
   @TypedRoute.Get()
   test() {
-    this.info("test");
+    this.info("test info");
+    this.warn("test warn");
+    this.error("test error");
+    this.debug("test debug");
     return "test";
   }
 }
