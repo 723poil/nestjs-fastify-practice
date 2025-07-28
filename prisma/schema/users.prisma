@@ -1,0 +1,59 @@
+//-----------------------------------------------------------
+// Users
+//-----------------------------------------------------------
+/// 유저 모델
+///
+/// 유저 정보를 담아두는 기본적인 데이터 모델
+///
+/// @namespace Users
+/// @author 723poil
+model Users {
+
+    /// Primary Key
+    user_id Int @default(autoincrement()) @id
+
+    /// 유저명
+    /// 50자 제한
+    user_name String? @db.VarChar(50)
+
+    /// 소셜 로그인 타입
+    ///
+    /// KAKAO, APPLE, GOOGLE
+    social_type SocialType 
+
+    /// 소셜 로그인 아이디
+    /// 300자 제한
+    social_id String @db.VarChar(300)
+
+    /// 유저상태
+    ///
+    /// REGISTER, ACTIVE, WITHDRAW, DELETED
+    user_status UserStatus @default(REGISTER)
+
+    /// 생성일자
+    created_at DateTime @default(now())
+
+    /// 수정일자
+    updated_at DateTime? @updatedAt
+
+    /// 삭제일자
+    deleted_at DateTime?
+
+    @@index([social_type, social_id])
+    @@index([user_name])
+    @@index([created_at])
+    @@index([user_status])
+}
+
+enum SocialType {
+    KAKAO
+    APPLE
+    GOOGLE
+}
+
+enum UserStatus {
+    REGISTER
+    ACTIVE
+    WITHDRAW
+    DELETED
+}

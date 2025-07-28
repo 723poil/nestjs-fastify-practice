@@ -20,6 +20,7 @@
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "prepare": "ts-patch install && typia patch",
     "prisma:migrate": "npx prisma migrate dev --name init",
+    "prisma:migrate:reset": "npx prisma migrate reset",
     "prisma:markdown": "npx prisma generate",
     "nestia:swagger": "npx nestia swagger",
     "nestia:all": "npx nestia all"
