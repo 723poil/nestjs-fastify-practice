@@ -1,0 +1,78 @@
+/// 프로젝트 태스크 모델
+/// 
+/// 프로젝트에서 진행한 작업내용을 담을 수 있는 데이터 모델
+/// 프로젝트와 프로젝트 멤버와 연결되어 있다. 
+/// 
+///
+/// @namespace Projects
+/// @erd All
+model tasks {
+    
+    /// Primary Key.
+    task_id Int @default(autoincrement()) @id
+
+    /// projects와 연결된 key
+    project_id Int
+
+    /// project_members와 연결된 key
+    member_id Int
+
+    /// 작업명 (30자)
+    task_name String @db.VarChar(30)
+
+    /// 작업내용
+    task_content String
+
+    /// 소요시간 (30분단위 - 0.5)
+    duration Float @db.DoublePrecision
+
+    //----
+    // RELATIONS
+    //----
+    project projects @relation(fields: [project_id], references: [project_id])
+    member project_members @relation(fields: [member_id], references: [project_member_id])
+    taskTagMaps task_tag_maps[]
+}
+
+/// 태스크에 사용되는 태그 모델
+///
+/// @namespace Projects
+/// @erd All
+model task_tags {
+
+    /// Primary Key.
+    task_tag_id Int @default(autoincrement()) @id
+
+    /// 작업 태그 명
+    task_tag_name String @db.VarChar(20)
+
+    /// 사용여부
+    is_used Boolean @default(true)
+
+    //----
+    // RELATIONS
+    //----
+    task_tag_maps task_tag_maps[]
+}
+
+/// 태스크에서 사용되는 태그들을 모아두는 모델
+///
+/// @namespace Projects
+/// @erd All
+model task_tag_maps {
+
+    /// Primary Key.
+    task_tag_maps_id Int @default(autoincrement()) @id
+    
+    /// 작업 번호
+    task_id Int
+
+    /// 작업 태그 번호
+    task_tag_id Int
+
+    //----
+    // RELATIONS
+    //----
+    task tasks @relation(fields: [task_id], references: [task_id])
+    task_tag task_tags @relation(fields: [task_tag_id], references: [task_tag_id])
+}

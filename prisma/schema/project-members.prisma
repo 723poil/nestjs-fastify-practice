@@ -1,0 +1,27 @@
+/// 프로젝트 멤버 모델
+///
+/// 프로젝트에 참여중인 멤버들의 정보를 담아두는 데이터 모델
+///
+/// @namespace Projects
+/// @erd All
+/// @erd Users
+/// @author 723poil
+model project_members {
+
+    /// Primary Key.
+    project_member_id Int @default(autoincrement()) @id
+
+    /// projects 테이블과 연결된 key
+    project_id Int
+    /// users 테이블과 연결된 key
+    user_id Int
+
+    @@index([project_id, user_id])
+
+    //----
+    // RELATIONS
+    //----
+    project projects @relation(fields: [project_id], references: [project_id])
+    user users @relation(fields: [user_id], references: [user_id])
+    tasks tasks[]
+}

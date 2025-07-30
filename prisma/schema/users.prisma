@@ -6,8 +6,9 @@
 /// 유저 정보를 담아두는 기본적인 데이터 모델
 ///
 /// @namespace Users
+/// @erd All
 /// @author 723poil
-model Users {
+model users {
 
     /// Primary Key
     user_id Int @default(autoincrement()) @id
@@ -30,6 +31,9 @@ model Users {
     /// REGISTER, ACTIVE, WITHDRAW, DELETED
     user_status UserStatus @default(REGISTER)
 
+    /// 선택 직군
+    job_role_id Int 
+
     /// 생성일자
     created_at DateTime @default(now())
 
@@ -43,6 +47,17 @@ model Users {
     @@index([user_name])
     @@index([created_at])
     @@index([user_status])
+
+    //----
+    // RELATIONS
+    //----
+    /// 프로젝트 리스트
+    ///
+    /// 멤버가 참여하고있는 프로젝트의 리스트를 담고있다.
+    /// 해당 테이블에 연결되어있는 projects 테이블을 통해 프로젝트 정보를 가져올 수 있다.
+    ///
+    projects project_members[]
+    job_role job_roles @relation(fields: [job_role_id], references: [job_role_id])
 }
 
 enum SocialType {

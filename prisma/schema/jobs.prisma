@@ -1,0 +1,55 @@
+//-----------------------------------------------------------
+// Jobs
+//-----------------------------------------------------------
+/// 직군 정보를 담고있는 데이터 모델
+///
+/// @namespace Jobs
+/// @erd Users
+/// @erd All
+model jobs {
+
+    /// Primary Key.
+    job_id Int @default(autoincrement()) @id
+
+    /// 직군명
+    job_name String @unique
+
+    /// 사용여부
+    is_used Boolean @default(true)
+
+    //----
+    // RELATIONS
+    //----
+    job_roles job_roles[]
+}
+
+/// 사용자는 해당 직군테이블에 있는 데이터를 하나 선택해서 가지고 있는다.
+/// 추 후에 여러개의 직군을 가지고 있을 수도 있으니, Users테이블의 job_role_id는 대표 직군으로 인지하고 있으면 될듯 하다.
+/// 개발 초기에는 기본적으로 jobs 테이블의 직군명들을 활용하기 때문에 jobs 와 job_roles를 1:1 관계로 유지한다. 
+/// (상세 직군을 활용하면 그때 1:N으로 변경)
+///
+/// @namespace Jobs
+/// @erd Users
+/// @erd All
+model job_roles {
+
+    /// 직군 상세번호
+    job_role_id Int @default(autoincrement()) @id
+
+    /// 직군번호
+    job_id Int
+
+    /// 직군 상세명
+    job_role_name String @unique
+
+    /// 사용여부
+    is_used Boolean @default(true)
+
+    @@index([job_id, job_role_id])
+
+    //----
+    // RELATIONS
+    //----
+    users users[]
+    job jobs @relation(fields: [job_id], references: [job_id])
+}
