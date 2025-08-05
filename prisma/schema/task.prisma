@@ -4,9 +4,9 @@
 /// 프로젝트와 프로젝트 멤버와 연결되어 있다. 
 /// 
 ///
-/// @namespace Projects
+/// @namespace Project
 /// @erd All
-model tasks {
+model task {
     
     /// Primary Key.
     task_id Int @default(autoincrement()) @id
@@ -30,19 +30,28 @@ model tasks {
     /// YYYY-MM-DD
     task_date String @db.VarChar(10) 
 
+    /// 생성일자
+    created_at DateTime @default(now())
+
+    /// 수정일자
+    updated_at DateTime? @updatedAt
+
+    /// 삭제일자
+    deleted_at DateTime?
+
     //----
     // RELATIONS
     //----
-    project projects @relation(fields: [project_id], references: [project_id])
-    member project_members @relation(fields: [member_id], references: [project_member_id])
-    taskTagMaps task_tag_maps[]
+    project project @relation(fields: [project_id], references: [project_id])
+    member project_member @relation(fields: [member_id], references: [project_member_id])
+    taskTagMaps task_tag_map[]
 }
 
 /// 태스크에 사용되는 태그 모델
 ///
-/// @namespace Projects
+/// @namespace Project
 /// @erd All
-model task_tags {
+model task_tag {
 
     /// Primary Key.
     task_tag_id Int @default(autoincrement()) @id
@@ -53,20 +62,29 @@ model task_tags {
     /// 사용여부
     is_used Boolean @default(true)
 
+    /// 생성일자
+    created_at DateTime @default(now())
+
+    /// 수정일자
+    updated_at DateTime? @updatedAt
+
+    /// 삭제일자
+    deleted_at DateTime?
+
     //----
     // RELATIONS
     //----
-    task_tag_maps task_tag_maps[]
+    task_tag_maps task_tag_map[]
 }
 
 /// 태스크에서 사용되는 태그들을 모아두는 모델
 ///
-/// @namespace Projects
+/// @namespace Project
 /// @erd All
-model task_tag_maps {
+model task_tag_map {
 
     /// Primary Key.
-    task_tag_maps_id Int @default(autoincrement()) @id
+    task_tag_map_id Int @default(autoincrement()) @id
     
     /// 작업 번호
     task_id Int
@@ -74,9 +92,18 @@ model task_tag_maps {
     /// 작업 태그 번호
     task_tag_id Int
 
+    /// 생성일자
+    created_at DateTime @default(now())
+
+    /// 수정일자
+    updated_at DateTime? @updatedAt
+
+    /// 삭제일자
+    deleted_at DateTime?
+
     //----
     // RELATIONS
     //----
-    task tasks @relation(fields: [task_id], references: [task_id])
-    task_tag task_tags @relation(fields: [task_tag_id], references: [task_tag_id])
+    task task @relation(fields: [task_id], references: [task_id])
+    task_tag task_tag @relation(fields: [task_tag_id], references: [task_tag_id])
 }

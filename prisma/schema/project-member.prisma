@@ -2,11 +2,11 @@
 ///
 /// 프로젝트에 참여중인 멤버들의 정보를 담아두는 데이터 모델
 ///
-/// @namespace Projects
+/// @namespace Project
 /// @erd All
-/// @erd Users
+/// @erd User
 /// @author 723poil
-model project_members {
+model project_member {
 
     /// Primary Key.
     project_member_id Int @default(autoincrement()) @id
@@ -26,14 +26,23 @@ model project_members {
     /// OWNER, MEMBER
     member_role MemberRole @default(MEMBER)
 
+    /// 생성일자
+    created_at DateTime @default(now())
+
+    /// 수정일자
+    updated_at DateTime? @updatedAt
+
+    /// 삭제일자
+    deleted_at DateTime?
+
     @@index([project_id, user_id])
 
     //----
     // RELATIONS
     //----
-    project projects @relation(fields: [project_id], references: [project_id])
-    user users @relation(fields: [user_id], references: [user_id])
-    tasks tasks[]
+    project project @relation(fields: [project_id], references: [project_id])
+    user user @relation(fields: [user_id], references: [user_id])
+    tasks task[]
 }
 
 enum MemberStatus {

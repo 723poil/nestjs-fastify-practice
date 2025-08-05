@@ -1,14 +1,14 @@
 //-----------------------------------------------------------
-// Projects
+// Project
 //-----------------------------------------------------------
 /// 프로젝트 모델
 ///
 /// 프로젝트 기본 정보를 담아두는 데이터 모델
 ///
-/// @namespace Projects
+/// @namespace Project
 /// @erd All
 /// @author 723poil
-model projects {
+model project {
 
     /// Primary Key
     project_id Int @default(autoincrement()) @id
@@ -55,8 +55,8 @@ model projects {
     /// 프로젝트를 생성한 유저가 project_members에 기본적으로 들어가야한다.
     ///
     /// @minItems 1
-    project_members project_members[]
-    task tasks[]
+    project_members project_member[]
+    tasks task[]
 }
 
 enum prjectStatus {
