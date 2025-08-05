@@ -16,6 +16,16 @@ model project_members {
     /// users 테이블과 연결된 key
     user_id Int
 
+    /// 멤버상태
+    ///
+    /// ACTIVE, BAN
+    member_status MemberStatus @default(ACTIVE)
+
+    /// 멤버역할
+    ///
+    /// OWNER, MEMBER
+    member_role MemberRole @default(MEMBER)
+
     @@index([project_id, user_id])
 
     //----
@@ -24,4 +34,14 @@ model project_members {
     project projects @relation(fields: [project_id], references: [project_id])
     user users @relation(fields: [user_id], references: [user_id])
     tasks tasks[]
+}
+
+enum MemberStatus {
+    ACTIVE
+    BAN
+}
+
+enum MemberRole {
+    OWNER
+    MEMBER
 }

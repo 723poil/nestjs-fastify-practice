@@ -17,6 +17,9 @@ model projects {
     /// 100자 제한
     project_name String @db.VarChar(100)
 
+    /// 프로젝트 설명
+    project_description String
+
     /// 프로젝트 상태
     ///
     /// ACTIVE, STOP, FINISHED, DELETED

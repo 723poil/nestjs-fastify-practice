@@ -26,6 +26,10 @@ model tasks {
     /// 소요시간 (30분단위 - 0.5)
     duration Float @db.DoublePrecision
 
+    /// 작업일
+    /// YYYY-MM-DD
+    task_date String @db.VarChar(10) 
+
     //----
     // RELATIONS
     //----

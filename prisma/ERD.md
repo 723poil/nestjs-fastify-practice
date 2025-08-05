@@ -57,10 +57,13 @@ erDiagram
   Int project_member_id PK
   Int project_id FK
   Int user_id FK
+  MemberStatus member_status
+  MemberRole member_role
 }
 "projects" {
   Int project_id PK
   String(100) project_name
+  String project_description
   prjectStatus project_status
   String(10) start_date
   String(10) end_date "nullable"
@@ -75,6 +78,7 @@ erDiagram
   String(30) task_name
   String task_content
   Float duration
+  String(10) task_date
 }
 "task_tags" {
   Int task_tag_id PK
@@ -104,6 +108,14 @@ Properties as follows:
 - `project_member_id`: Primary Key.
 - `project_id`: projects 테이블과 연결된 key
 - `user_id`: users 테이블과 연결된 key
+- `member_status`
+  > 멤버상태
+  >
+  > ACTIVE, BAN
+- `member_role`
+  > 멤버역할
+  >
+  > OWNER, MEMBER
 
 ### `projects`
 
@@ -117,6 +129,7 @@ Properties as follows:
 - `project_name`
   > 프로젝트명
   > 100자 제한
+- `project_description`: 프로젝트 설명
 - `project_status`
   > 프로젝트 상태
   >
@@ -146,6 +159,9 @@ Properties as follows:
 - `task_name`: 작업명 (30자)
 - `task_content`: 작업내용
 - `duration`: 소요시간 (30분단위 - 0.5)
+- `task_date`
+  > 작업일
+  > YYYY-MM-DD
 
 ### `task_tags`
 
@@ -197,6 +213,8 @@ erDiagram
   Int project_member_id PK
   Int project_id FK
   Int user_id FK
+  MemberStatus member_status
+  MemberRole member_role
 }
 "users" }o--|| "job_roles" : job_role
 "job_roles" }o--|| "jobs" : job
@@ -250,10 +268,13 @@ erDiagram
   Int project_member_id PK
   Int project_id FK
   Int user_id FK
+  MemberStatus member_status
+  MemberRole member_role
 }
 "projects" {
   Int project_id PK
   String(100) project_name
+  String project_description
   prjectStatus project_status
   String(10) start_date
   String(10) end_date "nullable"
@@ -268,6 +289,7 @@ erDiagram
   String(30) task_name
   String task_content
   Float duration
+  String(10) task_date
 }
 "task_tags" {
   Int task_tag_id PK
